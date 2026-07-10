@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DiffSSR+: Optimized Progressive Diffusion with Stereo-Consistent Sampling for 
+        <br>
+        Stereo Super-Resolution</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- Title -->
+<section class="hero">
+
+    <h1>
+        DiffSSR+: Optimized Progressive Diffusion with 
+        <br>
+        Stereo-Consistent Sampling for 
+        <br>
+        Stereo Super-Resolution
+    </h1>
+
+
+    <div class="authors">
+        <a href="https://pku-jamesluo.github.io/">Jinyi Luo</a><sup>1</sup>,
+        <a href="https://zahrafan.github.io/">Zejia Fan</a><sup>1</sup>,
+        <a href="https://flyywh.github.io/">Wenhan Yang</a><sup>2</sup>,
+        <a href="http://39.96.165.147/people/liujiaying.html">Jiaying Liu</a><sup>1</sup>
+    </div>
+
+
+    <div class="affiliation">
+    <sup>1</sup> Wangxuan Institute of Computer Technology,
+    Peking University
+    <br>
+    <sup>2</sup> Peng Cheng Laboratory
+    <br>
+    <br>
+        Accepted by IEEE TMM 2026
+    </div>
+
+
+    <div class="buttons">
+
+        <a class="button" href="#">
+            📄 Paper (Coming Soon)
+        </a>
+
+        <a class="button" href="#">
+            ◉ Code (Coming Soon)
+        </a>
+
+    </div>
+
+</section>
+
+
+
+
+<!-- Abstract -->
+
+<section>
+
+<h2>
+Abstract
+</h2>
+
+<div class="divider"></div>
+
+
+<p class="abstract">
+
+Recent single-image super-resolution methods leverage the generative priors of diffusion models to achieve superior
+perceptual quality in the reconstructed images. However, these
+perceptual-driven methods suffer from severe fidelity distortion
+in stereo super-resolution tasks due to the stereo inconsistency introduced by the stochastic nature of the diffusion generation process. We address this challenge by leveraging stereo constraints
+to guide diffusion at both noise sampling and diffusion feature
+fusion, allowing the model to handle complex low-resolution
+degradation while maintaining cross-view consistency, achieving
+a favorable perceptual-fidelity balance. 
+<!-- To be specific, we address
+the fundamental problem that the inherent stochasticity of diffusion disrupts stereo consistency by proposing a stereo-consistent
+noise sampling optimization strategy, where we obtain the leftview noise by sampling an approximate optimal initial noise and
+optimizing the variance noise via a perceptual-consistency loss,
+while the right-view noise is obtained by disparity-aware warping.
+This approach drives the diffusion process toward outputs that
+satisfy stereo high-frequency detail consistency while delivering
+improved perceptual quality. To enhance stereo consistency at
+the structural and semantic levels, we design a Disparity-Aware
+State-Space Module, which performs stereo feature fusion via a
+sequentially bi-directional cross-scanning approach that is more
+suitable for the diffusion feature space than traditional attention
+operation. 
+Together,  -->
+We build a diffusion-based stereo superresolution framework, <strong>DiffSSR+</strong>, which progressively integrates
+stereo guidance into the diffusion process to achieve a better
+fidelity-perception trade-off, and is plug-and-play to a broad
+range of diffusion SR architectures.
+
+</p>
+
+
+</section>
+
+
+<!-- Method -->
+
+<section>
+
+<h2>
+Method
+</h2>
+
+<div class="divider"></div>
+
+<div class="teaser-container">
+    <img class="teaser" src="assets/framework.png">
+
+    <div class="carousel-caption">
+        <strong>Figure 1</strong>
+        <span>The framework of our proposed DiffSSR+</span>
+    </div>
+</div>
+
+<p>
+The key idea of our proposed method include:
+</p>
+
+<ul>
+    <li>
+        We address the fundamental problem that the inherent stochasticity of diffusion disrupts stereo consistency by proposing a 
+        <strong>stereo-consistent noise sampling optimization</strong> strategy.
+        This strategy progressively optimizes the sampled noise at both initial noise sampling stage where
+        the noise is obtained by the OBC sampling and disparity-aware warping, and the test-time optimization stage where the variance noise is optimized by the
+        combined perceptual-consistency loss.
+    </li>
+
+    <li>
+        To enhance stereo consistency at the structural and semantic levels, we design a 
+        <strong>Disparity-Aware State-Space Module</strong>, which performs stereo feature fusion via a sequentially bi-directional cross-scanning approach that is more suitable for the diffusion feature space than traditional attention operation.
+    </li>
+</ul>
+
+
+
+<div class="teaser-container">
+    <img class="teaser"
+src="assets/dassm.png">
+
+    <div class="carousel-caption">
+        <strong>Figure 2</strong>
+        The structure of the Disparity-Aware State-Space Model (DASSM) and the Stereo Bi-directional Cross Scan Model (SBCSM)
+    </div>
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- Results -->
+
+<section>
+
+
+<h2>
+Results
+</h2>
+
+
+<div class="divider"></div>
+
+
+<p>
+
+Our proposed DiffSSR+ achieves state-of-the-art performance
+on multiple benchmarks:
+
+</p>
+
+<div class="results-slider">
+
+
+    <div class="carousel-wrapper">
+
+
+        <button class="carousel-button prev">
+            ‹
+        </button>
+
+
+        <div class="carousel-track">
+
+
+            <div class="carousel-item">
+
+                    <div class="carousel-caption">
+
+                    <strong>
+                    Table 1
+                    </strong>
+
+                    <span>
+                    Quantitative Results on the Flickr1024RS Dataset
+                    </span>
+
+                </div>
+
+                <img src="assets/result_Flickr1024RS.png"
+                     alt="Result 1">
+
+            </div>
+
+
+
+            <div class="carousel-item">
+
+                <div class="carousel-caption">
+
+                    <strong>
+                    Table 2
+                    </strong>
+
+                    <span>
+                    Quantitative Results on the Flickr1024Blind Dataset
+                    </span>
+
+                </div>
+
+                <img src="assets/result_Flickr1024RS.png"
+                     alt="Result 2">
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <button class="carousel-button next">
+            ›
+        </button>
+
+
+    </div>
+
+
+</div>
+
+<p>
+Moreover, the qualitative results show that our DiffSSR+method achieves a well-balanced trade-off between visual perceptual quality and left-right view consistency:
+</p>
+
+<div class="results-slider">
+
+
+    <div class="carousel-wrapper">
+
+
+        <button class="carousel-button prev">
+            ‹
+        </button>
+
+
+        <div class="carousel-track">
+
+
+            <div class="carousel-item">
+
+                <img src="assets/visualization.png"
+                     alt="Result 1">
+
+                <div class="carousel-caption">
+
+                    <strong>
+                    Figure 3
+                    </strong>
+
+                    <span>
+                    Qualitative comparison of DiffSSR+ with other perceptual-driven SISR methods and fidelity-driven Stereo SR methods
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="carousel-item">
+
+                <img src="assets/vis_backbones.png"
+                     alt="Result 2">
+
+
+                <div class="carousel-caption">
+
+                    <strong>
+                    Figure 4
+                    </strong>
+
+                    <span>
+                    Visualization of the DiffSSR+ framework applied to different diffusion-based SISR backbones
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <button class="carousel-button next">
+            ›
+        </button>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<section class="citation-section">
+
+
+<h2>
+Citation
+</h2>
+
+
+<div class="divider"></div>
+
+
+
+<div class="citation-box">
+
+
+<button class="copy-button" onclick="copyBibtex()">
+Copy BibTeX
+</button>
+
+
+
+<pre id="bibtex">
+@article{luo2026diffssr+,
+  title={{DiffSSR+}: Optimized Progressive Diffusion with Stereo-Consistent Sampling for Stereo Super-Resolution},
+  author={Luo, Jinyi and Fan, Zejia and Yang, Wenhan and Liu, Jiaying},
+  journal={IEEE Transactions on Multimedia},
+  year={2026}
+}
+</pre>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+<footer>
+
+<div class="footer-content">
+
+    <a class="return-link" href="http://39.96.165.147/Projects.html">
+        ← Return to STRUCT Project Page
+    </a>
+
+
+    <div class="copyright">
+        Copyright © 2026 STRUCT
+    </div>
+
+</div>
+
+</footer>
+
+
+</div>
+
+<script>
+
+
+document.querySelectorAll('.results-slider').forEach(slider => {
+
+
+    const track = slider.querySelector('.carousel-track');
+
+    const items = slider.querySelectorAll('.carousel-item');
+
+    const prevButton = slider.querySelector('.carousel-button.prev');
+
+    const nextButton = slider.querySelector('.carousel-button.next');
+
+
+    let currentIndex = 0;
+
+
+
+    function updateCarousel(){
+
+        track.style.transform =
+        `translateX(-${currentIndex * 100}%)`;
+
+    }
+
+
+
+    nextButton.addEventListener('click', ()=>{
+
+
+        currentIndex++;
+
+
+        if(currentIndex >= items.length){
+
+            currentIndex = 0;
+
+        }
+
+
+        updateCarousel();
+
+
+    });
+
+
+
+
+    prevButton.addEventListener('click', ()=>{
+
+
+        currentIndex--;
+
+
+        if(currentIndex < 0){
+
+            currentIndex = items.length - 1;
+
+        }
+
+
+        updateCarousel();
+
+
+    });
+
+
+
+});
+
+function copyBibtex(){
+
+    const bibtex =
+    document.getElementById("bibtex").innerText;
+
+
+    navigator.clipboard.writeText(bibtex);
+
+
+    const button =
+    document.querySelector(".copy-button");
+
+
+    button.innerText = "Copied!";
+
+
+    setTimeout(()=>{
+
+        button.innerText = "Copy BibTeX";
+
+    },2000);
+
+}
+
+
+
+</script>
+
+</body>
+
+</html>
